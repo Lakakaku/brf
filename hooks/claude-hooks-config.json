@@ -1,0 +1,70 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/lucasjenner/brf/hooks/scripts/swedish-context.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": {
+          "tool": "Write"
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/lucasjenner/brf/hooks/scripts/code-quality.py",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": {
+          "tool": "Edit"
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/lucasjenner/brf/hooks/scripts/code-quality.py",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": {
+          "tool": "MultiEdit"
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/lucasjenner/brf/hooks/scripts/code-quality.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": {
+          "tool": "Write",
+          "arguments": {
+            "file_path": "**/*.{ts,tsx,js,jsx,py,json,env,yaml,yml}"
+          }
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/lucasjenner/brf/hooks/scripts/security-check.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
