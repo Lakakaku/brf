@@ -1,0 +1,59 @@
+{
+  "mcpServers": {
+    "supabase-brf": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only",
+        "--project-ref=YOUR_PROJECT_REF_HERE"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "YOUR_PERSONAL_ACCESS_TOKEN_HERE"
+      },
+      "description": "Official Supabase MCP server for BRF Portal database operations"
+    },
+    "pdf-reader-brf": {
+      "command": "npx",
+      "args": ["@sylphlab/pdf-reader-mcp"],
+      "description": "PDF processing for Swedish invoices and BRF documents"
+    },
+    "exa-search": {
+      "command": "npx",
+      "args": ["-y", "@exa-search/exa-search-mcp@latest"],
+      "env": {
+        "EXA_API_KEY": "YOUR_EXA_API_KEY_HERE"
+      },
+      "description": "Advanced web search for BRF research and documentation"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem@latest",
+        "/Users/lucasjenner/brf"
+      ],
+      "description": "File system operations scoped to BRF project directory"
+    },
+    "playwright-browser": {
+      "command": "node",
+      "args": ["/Users/lucasjenner/brf/playwright-mcp/index.js"],
+      "cwd": "/Users/lucasjenner/brf/playwright-mcp",
+      "description": "Browser automation for BRF portal testing and integration testing"
+    },
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git@latest",
+        "/Users/lucasjenner/brf"
+      ],
+      "description": "Git operations for BRF Portal development workflow"
+    },
+    "ref-tools": {
+      "command": "timeout",
+      "args": ["5", "npx", "@taika-st/ref-tools-mcp-optimized"],
+      "description": "Documentation search and reference tools"
+    }
+  }
+}

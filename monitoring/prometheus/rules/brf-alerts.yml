@@ -1,0 +1,284 @@
+# BRF Portal Alert Rules for Prometheus
+groups:
+  - name: brf-portal-system
+    interval: 30s
+    rules:
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+          service: system
+          category: resource
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is above 80% for more than 2 minutes"
+          runbook_url: "https://wiki.brf.se/runbooks/high-cpu"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+          category: resource
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is above 85% for more than 5 minutes"
+
+      # Low disk space
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 15
+        for: 1m
+        labels:
+          severity: critical
+          service: system
+          category: resource
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is below 15%"
+
+      # Application down
+      - alert: ApplicationDown
+        expr: up{job="brf-portal"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: brf-portal
+          category: availability
+        annotations:
+          summary: "BRF Portal application is down"
+          description: "The BRF Portal application has been down for more than 1 minute"
+
+  - name: brf-portal-application
+    interval: 30s
+    rules:
+      # High response time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 3m
+        labels:
+          severity: warning
+          service: brf-portal
+          category: performance
+        annotations:
+          summary: "High response time"
+          description: "95th percentile response time is above 2 seconds"
+
+      # High error rate
+      - alert: HighErrorRate
+        expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+          service: brf-portal
+          category: availability
+        annotations:
+          summary: "High error rate"
+          description: "Error rate is above 5% for more than 2 minutes"
+
+      # Database connection failures
+      - alert: DatabaseConnectionFailures
+        expr: rate(database_connection_errors_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+          service: database
+          category: availability
+        annotations:
+          summary: "Database connection failures"
+          description: "Database connection failure rate is above 0.1 per second"
+
+      # Slow database queries
+      - alert: SlowDatabaseQueries
+        expr: histogram_quantile(0.95, rate(database_query_duration_seconds_bucket[5m])) > 1
+        for: 3m
+        labels:
+          severity: warning
+          service: database
+          category: performance
+        annotations:
+          summary: "Slow database queries"
+          description: "95th percentile database query time is above 1 second"
+
+  - name: brf-portal-business
+    interval: 60s
+    rules:
+      # Low payment collection rate
+      - alert: LowPaymentCollectionRate
+        expr: brf_payment_collection_rate < 80
+        for: 5m
+        labels:
+          severity: warning
+          service: brf-operations
+          category: business
+        annotations:
+          summary: "Low payment collection rate"
+          description: "Monthly fee collection rate is below 80%"
+
+      # High number of overdue payments
+      - alert: HighOverduePayments
+        expr: brf_overdue_payments_count > 10
+        for: 1m
+        labels:
+          severity: warning
+          service: brf-operations
+          category: financial
+        annotations:
+          summary: "High number of overdue payments"
+          description: "More than 10 overdue payments detected"
+
+      # Energy cost spike
+      - alert: EnergyCostSpike
+        expr: increase(brf_energy_cost_per_sqm[1h]) > 50
+        for: 5m
+        labels:
+          severity: warning
+          service: brf-operations
+          category: energy
+        annotations:
+          summary: "Energy cost spike detected"
+          description: "Energy cost per square meter has increased by more than 50 SEK in the last hour"
+
+      # Too many open maintenance cases
+      - alert: HighMaintenanceBacklog
+        expr: brf_maintenance_cases_open > 20
+        for: 10m
+        labels:
+          severity: warning
+          service: brf-operations
+          category: maintenance
+        annotations:
+          summary: "High maintenance backlog"
+          description: "More than 20 open maintenance cases"
+
+  - name: brf-portal-security
+    interval: 30s
+    rules:
+      # Failed login attempts
+      - alert: HighFailedLoginAttempts
+        expr: rate(auth_failed_attempts_total[5m]) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+          service: authentication
+          category: security
+        annotations:
+          summary: "High number of failed login attempts"
+          description: "Failed login attempt rate is above 0.5 per second"
+
+      # Suspicious API access patterns
+      - alert: SuspiciousAPIAccess
+        expr: rate(http_requests_total{status="401"}[5m]) > 1
+        for: 2m
+        labels:
+          severity: warning
+          service: api
+          category: security
+        annotations:
+          summary: "Suspicious API access patterns"
+          description: "High rate of 401 unauthorized responses"
+
+      # GDPR compliance violations
+      - alert: GDPRComplianceViolation
+        expr: brf_gdpr_compliance_score < 70
+        for: 5m
+        labels:
+          severity: critical
+          service: brf-operations
+          category: compliance
+        annotations:
+          summary: "GDPR compliance score below threshold"
+          description: "GDPR compliance score is below 70%"
+
+  - name: brf-portal-infrastructure
+    interval: 30s
+    rules:
+      # Redis down
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+          category: availability
+        annotations:
+          summary: "Redis is down"
+          description: "Redis cache service is unavailable"
+
+      # High Redis memory usage
+      - alert: HighRedisMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+          category: resource
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis memory usage is above 90%"
+
+      # Nginx high connection count
+      - alert: NginxHighConnections
+        expr: nginx_connections_active > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service: nginx
+          category: performance
+        annotations:
+          summary: "High number of active connections"
+          description: "More than 1000 active connections on Nginx"
+
+      # Container restart frequency
+      - alert: FrequentContainerRestarts
+        expr: increase(container_last_seen[1h]) > 3
+        for: 1m
+        labels:
+          severity: warning
+          service: docker
+          category: stability
+        annotations:
+          summary: "Frequent container restarts"
+          description: "Container has restarted more than 3 times in the last hour"
+
+  - name: brf-portal-compliance
+    interval: 300s # Check every 5 minutes
+    rules:
+      # Annual report filing deadline approaching
+      - alert: AnnualReportDeadlineApproaching
+        expr: (brf_annual_report_deadline_days < 30) and (brf_annual_report_filed == 0)
+        for: 1h
+        labels:
+          severity: warning
+          service: brf-operations
+          category: compliance
+        annotations:
+          summary: "Annual report filing deadline approaching"
+          description: "Less than 30 days until annual report filing deadline"
+
+      # Energy certificate expiring
+      - alert: EnergyCertificateExpiring
+        expr: brf_energy_certificate_expires_days < 90
+        for: 1h
+        labels:
+          severity: warning
+          service: brf-operations
+          category: compliance
+        annotations:
+          summary: "Energy certificate expiring soon"
+          description: "Energy certificate expires in less than 90 days"
+
+      # Board meeting quorum not met
+      - alert: BoardMeetingQuorumNotMet
+        expr: brf_board_meeting_quorum_met == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: brf-operations
+          category: governance
+        annotations:
+          summary: "Board meeting quorum not met"
+          description: "Recent board meeting did not meet quorum requirements"

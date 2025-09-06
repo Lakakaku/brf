@@ -11,14 +11,19 @@ export * from './migrations';
 // Seed data
 export * from './seeds/development';
 
-// Database utilities
+// Row-Level Security (RLS) implementation
+export * from './rls';
+export * from './security';
+export * from './views';
+
+// Database utilities (now RLS-aware)
 export * from './utils';
+
+// Query inspector system for Swedish BRF compliance
+export * from './query-inspector';
 
 // Initialization and management
 export * from './init';
-
-// Re-export the main database utilities for easy access
-export { db as database } from './utils';
 
 // Export default database connection
 export { default as getDatabase } from './config';

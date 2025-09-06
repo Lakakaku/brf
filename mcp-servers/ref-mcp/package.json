@@ -1,0 +1,21 @@
+{
+  "name": "brf-ref-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for managing code relationships across BRF Portal's Next.js, Python AI services, and database schemas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "@types/node": "^20.0.0",
+    "fs-extra": "^11.0.0",
+    "glob": "^10.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": ["mcp", "code-analysis", "relationships", "brf-portal"],
+  "author": "BRF Portal",
+  "license": "MIT"
+}

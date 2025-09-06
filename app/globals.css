@@ -1,40 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* BRF Portal CSS Variables */
+/* BRF Portal CSS Variables - Following Style Guide */
 :root {
-  /* Light theme - Professional Swedish design */
+  /* Brand Colors - Forest & Ocean Theme */
+  --forest-dark: #2D5A27;
+  --forest-base: #4A8B3A;
+  --forest-light: #6BA05B;
+  --forest-bg: #E8F4E6;
+  
+  --ocean-dark: #1B4D5C;
+  --ocean-base: #2B7A8C;
+  --ocean-light: #4A9BAE;
+  --ocean-bg: #E6F3F6;
+  
+  --cyan-vibrant: #0891B2;
+  --cyan-bright: #22D3EE;
+  --cyan-soft: #A5F3FC;
+  --cyan-bg: #ECFEFF;
+  
+  /* Text Colors */
+  --text-primary: #374151;
+  --text-secondary: #6B7280;
+  --text-subtle: #9CA3AF;
+  --bg-gray: #F3F4F6;
+  
+  /* Accent Colors */
+  --accent-amber: #F59E0B;
+  --accent-red: #EF4444;
+  --accent-purple: #8B5CF6;
+  --accent-turquoise: #06B6D4;
+  --accent-green: #10B981;
+  
+  /* Tailwind Compatibility */
   --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  --foreground: 215 16% 27%; /* Maps to text-primary */
   --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
+  --card-foreground: 215 16% 27%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222.2 84% 4.9%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222.2 84% 4.9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
+  --popover-foreground: 215 16% 27%;
+  --primary: 113 39% 39%; /* Maps to forest-base */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 191 51% 36%; /* Maps to ocean-base */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 210 20% 96%;
+  --muted-foreground: 215 14% 45%;
+  --accent: 188 76% 36%; /* Maps to cyan-vibrant */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 61%; /* Maps to accent-red */
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 113 39% 39%;
   --radius: 0.5rem;
 
   /* BRF-specific semantic colors */
-  --brf-primary: #0ea5e9;
-  --brf-secondary: #64748b;
-  --brf-success: #22c55e;
-  --brf-warning: #f59e0b;
-  --brf-error: #ef4444;
-  --brf-info: #3b82f6;
+  --brf-primary: #4A8B3A;
+  --brf-secondary: #2B7A8C;
+  --brf-success: #10B981;
+  --brf-warning: #F59E0B;
+  --brf-error: #EF4444;
+  --brf-info: #06B6D4;
 
   /* Financial colors */
   --financial-positive: #16a34a;
@@ -85,32 +114,154 @@ html {
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text-primary);
   background: var(--background);
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-variation-settings: 'wght' 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+/* Typography Scale per Style Guide */
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 /* Improved focus styles for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 139, 58, 0.1);
+  border-color: var(--forest-base);
+}
+
+/* BRF Portal Component Styles */
+
+/* Primary Button Style */
+.btn-primary {
+  background: linear-gradient(135deg, #4a8b3a 0%, #2b7a8c 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+  background: transparent;
+  color: #4a8b3a;
+  border: 2px solid #4a8b3a;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background: #E8F4E6;
+  transform: scale(1.02);
+}
+
+/* Card Styles */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f3f4f6;
+  padding: 24px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card-highlighted {
+  background: linear-gradient(135deg, #e8f4e6 0%, #e6f3f6 100%);
+  border: 1px solid #4a8b3a;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+/* Input Field Styles */
+.input-field {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.input-field:focus {
+  border-color: #4a8b3a;
+  box-shadow: 0 0 0 3px rgba(74, 139, 58, 0.1);
+  outline: none;
+}
+
+/* Label Styles */
+.form-label {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Gradient Backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #4a8b3a 0%, #2b7a8c 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+}
+
+.gradient-subtle {
+  background: linear-gradient(135deg, #e8f4e6 0%, #e6f3f6 100%);
 }
 
 /* Link styles */
 a {
-  color: var(--brf-primary);
+  color: var(--brf-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -218,6 +369,27 @@ tr:hover {
   font-feature-settings: 'tnum';
 }
 
+/* Swedish personnummer formatting */
+.personnummer {
+  font-family: 'Monaco', 'Consolas', 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  font-size: 0.95em;
+}
+
+/* Swedish phone number formatting */
+.phone-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Swedish postal code formatting */
+.postal-code {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: 1px;
+}
+
 /* Utility classes */
 @layer utilities {
   .text-balance {
@@ -278,6 +450,83 @@ tr:hover {
     content: ' kr';
   }
 
+  /* Swedish BankID Styles */
+  .bankid-container {
+    /* Official BankID blue color palette */
+    --bankid-primary: #005AA0;
+    --bankid-primary-hover: #004A8C;
+    --bankid-secondary: #F5F8FA;
+    --bankid-text: #1A1A1A;
+    --bankid-text-light: #666666;
+    --bankid-border: #E1E5E9;
+    --bankid-success: #00A651;
+    --bankid-warning: #FF6B35;
+    --bankid-error: #DC3545;
+  }
+
+  .bankid-logo {
+    background: var(--bankid-primary);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .bankid-button {
+    background: var(--bankid-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+  }
+
+  .bankid-button:hover:not(:disabled) {
+    background: var(--bankid-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 90, 160, 0.3);
+  }
+
+  .bankid-button:active {
+    transform: translateY(0);
+  }
+
+  .bankid-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .bankid-status-pending {
+    color: var(--bankid-primary);
+  }
+
+  .bankid-status-success {
+    color: var(--bankid-success);
+  }
+
+  .bankid-status-warning {
+    color: var(--bankid-warning);
+  }
+
+  .bankid-status-error {
+    color: var(--bankid-error);
+  }
+
   /* Responsive typography */
   .text-responsive {
     font-size: clamp(0.875rem, 2.5vw, 1rem);
@@ -309,84 +558,144 @@ tr:hover {
       transform: rotate(360deg);
     }
   }
+
+  /* BankID-specific animations */
+  @keyframes bankid-pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes bankid-progress {
+    0% {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    100% {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  @keyframes bankid-qr-refresh {
+    0% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      opacity: 0.3;
+      transform: rotate(180deg) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(360deg) scale(1);
+    }
+  }
+
+  @keyframes bankid-success {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bankid-error-shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    75% {
+      transform: translateX(4px);
+    }
+  }
+
+  @keyframes bankid-mobile-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .bankid-animate-pulse {
+    animation: bankid-pulse 2s ease-in-out infinite;
+  }
+
+  .bankid-animate-progress {
+    animation: bankid-progress 0.3s ease-out;
+  }
+
+  .bankid-animate-qr-refresh {
+    animation: bankid-qr-refresh 1s ease-in-out;
+  }
+
+  .bankid-animate-success {
+    animation: bankid-success 0.5s ease-out;
+  }
+
+  .bankid-animate-error {
+    animation: bankid-error-shake 0.5s ease-out;
+  }
+
+  .bankid-animate-mobile-bounce {
+    animation: bankid-mobile-bounce 2s ease-in-out infinite;
+  }
 }
 
 /* Component styles */
 @layer components {
   /* Card component */
   .brf-card {
-    @apply bg-white border border-secondary-200 rounded-card shadow-card p-6;
+    @apply bg-white border rounded-lg shadow-sm p-6;
   }
 
   .brf-card:hover {
-    @apply shadow-card-hover;
-  }
-
-  /* Button variants */
-  .btn-primary {
-    @apply bg-primary-500 text-white px-4 py-2 rounded-button font-medium;
-    @apply hover:bg-primary-600 focus:ring-2 focus:ring-primary-200;
-  }
-
-  .btn-secondary {
-    @apply bg-secondary-100 text-secondary-700 px-4 py-2 rounded-button font-medium;
-    @apply hover:bg-secondary-200 focus:ring-2 focus:ring-secondary-200;
-  }
-
-  .btn-success {
-    @apply bg-accent-success-500 text-white px-4 py-2 rounded-button font-medium;
-    @apply hover:bg-accent-success-600 focus:ring-2 focus:ring-accent-success-200;
-  }
-
-  .btn-warning {
-    @apply bg-accent-warning-500 text-white px-4 py-2 rounded-button font-medium;
-    @apply hover:bg-accent-warning-600 focus:ring-2 focus:ring-accent-warning-200;
-  }
-
-  .btn-error {
-    @apply bg-accent-error-500 text-white px-4 py-2 rounded-button font-medium;
-    @apply hover:bg-accent-error-600 focus:ring-2 focus:ring-accent-error-200;
-  }
-
-  /* Input components */
-  .input-field {
-    @apply w-full px-3 py-2 border border-secondary-300 rounded-md;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary-500;
-    @apply placeholder-secondary-400;
+    @apply shadow-md;
   }
 
   /* Table components */
   .brf-table {
-    @apply w-full divide-y divide-secondary-200;
+    @apply w-full divide-y;
   }
 
   .brf-table th {
-    @apply px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider;
+    @apply px-6 py-3 text-left text-xs font-medium uppercase tracking-wider;
   }
 
   .brf-table td {
-    @apply px-6 py-4 whitespace-nowrap text-sm text-secondary-900;
+    @apply px-6 py-4 whitespace-nowrap text-sm;
   }
 
   /* Status indicators */
   .status-success {
     @apply inline-flex px-2 py-1 text-xs font-medium rounded-full;
-    @apply bg-accent-success-100 text-accent-success-800;
   }
 
   .status-warning {
     @apply inline-flex px-2 py-1 text-xs font-medium rounded-full;
-    @apply bg-accent-warning-100 text-accent-warning-800;
   }
 
   .status-error {
     @apply inline-flex px-2 py-1 text-xs font-medium rounded-full;
-    @apply bg-accent-error-100 text-accent-error-800;
   }
 
   .status-info {
     @apply inline-flex px-2 py-1 text-xs font-medium rounded-full;
-    @apply bg-accent-info-100 text-accent-info-800;
   }
 
   /* Financial display components */
@@ -395,14 +704,175 @@ tr:hover {
   }
 
   .financial-amount.positive {
-    @apply text-financial-positive;
+    color: var(--financial-positive);
   }
 
   .financial-amount.negative {
-    @apply text-financial-negative;
+    color: var(--financial-negative);
   }
 
   .financial-amount.neutral {
-    @apply text-financial-neutral;
+    color: var(--financial-neutral);
+  }
+
+  /* BankID Component Styles */
+  .bankid-card {
+    @apply bg-white border-2 rounded-lg shadow-sm;
+    border-color: #E1E8F0;
+    background: linear-gradient(to bottom, #FAFBFC, #FFFFFF);
+  }
+
+  .bankid-card-header {
+    @apply px-6 py-4 rounded-t-lg;
+    background: linear-gradient(135deg, #F0F7FF 0%, #E6F3FF 100%);
+    border-bottom: 1px solid #E1E8F0;
+  }
+
+  .bankid-card-content {
+    @apply p-6;
+  }
+
+  .bankid-input {
+    @apply w-full px-4 py-3 border rounded-lg text-center;
+    @apply focus:outline-none focus:ring-2 focus:border-transparent;
+    border-color: #D1D9E0;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .bankid-input:focus {
+    ring-color: rgba(0, 90, 160, 0.3);
+    border-color: #005AA0;
+  }
+
+  .bankid-progress-bar {
+    @apply w-full h-2 bg-gray-200 rounded-full overflow-hidden;
+  }
+
+  .bankid-progress-fill {
+    @apply h-full rounded-full transition-all duration-300 ease-out;
+    background: linear-gradient(90deg, #005AA0 0%, #007BCC 100%);
+  }
+
+  .bankid-qr-container {
+    @apply flex flex-col items-center space-y-3 p-4;
+    background: radial-gradient(circle, #FAFBFC 0%, #F5F8FA 100%);
+    border: 2px dashed #D1D9E0;
+    border-radius: 12px;
+  }
+
+  .bankid-qr-code {
+    @apply bg-white p-4 rounded-lg border shadow-sm;
+    border-color: #E1E8F0;
+  }
+
+  .bankid-mobile-device {
+    @apply relative;
+  }
+
+  .bankid-mobile-device::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br;
+    from-color: rgba(0, 90, 160, 0.1);
+    to-color: rgba(0, 90, 160, 0.05);
+    border-radius: 20px;
+    z-index: -1;
+  }
+
+  .bankid-status-icon {
+    @apply w-8 h-8 flex items-center justify-center rounded-full;
+  }
+
+  .bankid-status-icon.pending {
+    @apply bg-blue-100 text-blue-600;
+  }
+
+  .bankid-status-icon.success {
+    @apply bg-green-100 text-green-600;
+  }
+
+  .bankid-status-icon.error {
+    @apply bg-red-100 text-red-600;
+  }
+
+  .bankid-status-icon.warning {
+    @apply bg-orange-100 text-orange-600;
+  }
+
+  /* Swedish form styling */
+  .swedish-form-field {
+    @apply space-y-2;
+  }
+
+  .swedish-form-label {
+    @apply text-sm font-medium text-gray-700;
+  }
+
+  .swedish-form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply placeholder-gray-400 transition-colors duration-200;
+  }
+
+  .swedish-form-input:invalid {
+    @apply border-red-300;
+  }
+
+  .swedish-form-input:invalid:focus {
+    @apply ring-red-500;
+  }
+
+  .swedish-form-error {
+    @apply text-sm text-red-600 mt-1;
+  }
+
+  .swedish-form-help {
+    @apply text-xs text-gray-500 mt-1;
+  }
+
+  /* Registration wizard styles */
+  .registration-wizard {
+    @apply max-w-2xl mx-auto;
+  }
+
+  .registration-step-indicator {
+    @apply flex items-center justify-between mb-8;
+  }
+
+  .registration-step {
+    @apply flex items-center space-x-3;
+  }
+
+  .registration-step-number {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium;
+  }
+
+  .registration-step-number.active {
+    @apply bg-blue-600 text-white;
+  }
+
+  .registration-step-number.completed {
+    @apply bg-green-600 text-white;
+  }
+
+  .registration-step-number.pending {
+    @apply bg-gray-200 text-gray-600;
+  }
+
+  .registration-step-title {
+    @apply text-sm font-medium;
+  }
+
+  .registration-step-title.active {
+    @apply text-blue-600;
+  }
+
+  .registration-step-title.completed {
+    @apply text-green-600;
+  }
+
+  .registration-step-title.pending {
+    @apply text-gray-500;
   }
 }

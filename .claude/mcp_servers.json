@@ -1,0 +1,73 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/lucasjenner/brf"
+      ],
+      "env": {},
+      "description": "Access to BRF Portal project filesystem"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {},
+      "description": "Sequential thinking for complex BRF development problems"
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase"],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_ANON_KEY": "your-anon-key-here"
+      },
+      "description": "PostgreSQL database operations for BRF multi-tenant architecture"
+    }
+  },
+  "integrations": {
+    "semgrep": {
+      "command": "semgrep",
+      "description": "Security scanning for financial/personal data handling",
+      "usage": "Run 'semgrep --config=auto .' in project root"
+    },
+    "playwright": {
+      "command": "npx playwright test",
+      "description": "E2E testing for member portal and board dashboard",
+      "setup": "Run 'npx playwright install' first"
+    },
+    "github": {
+      "command": "gh",
+      "description": "GitHub CLI for repository management",
+      "usage": "Use 'gh repo create', 'gh pr create', etc."
+    }
+  },
+  "custom_servers_needed": {
+    "ref-mcp": {
+      "priority": "high",
+      "description": "Code relationship analysis across Next.js/Python/DB",
+      "implementation": "Create custom Node.js MCP server"
+    },
+    "pieces-mcp": {
+      "priority": "high",
+      "description": "Code snippet management for TypeScript/Python patterns",
+      "implementation": "Create custom Node.js MCP server"
+    },
+    "pdf-mcp": {
+      "priority": "high",
+      "description": "Swedish document processing (invoices, protocols)",
+      "implementation": "Create custom Python MCP server with OCR"
+    },
+    "exa-search-mcp": {
+      "priority": "medium",
+      "description": "Swedish market research and documentation",
+      "implementation": "Create custom Python MCP server with web search"
+    },
+    "stripe-mcp": {
+      "priority": "medium",
+      "description": "Payment processing for BRF subscriptions",
+      "implementation": "Create custom Node.js MCP server with Stripe API"
+    }
+  }
+}

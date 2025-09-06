@@ -1,0 +1,211 @@
+# AlertManager configuration for BRF Portal
+global:
+  smtp_smarthost: 'localhost:587'
+  smtp_from: 'alerts@brf.se'
+  smtp_auth_username: 'alerts@brf.se'
+  smtp_auth_password: 'your-email-password'
+  smtp_require_tls: true
+
+# Templates for notifications
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'
+
+# Routing rules
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+  routes:
+    # Critical system alerts
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 5s
+      repeat_interval: 5m
+
+    # Business/BRF operational alerts
+    - match:
+        category: business
+      receiver: 'brf-operations'
+      group_wait: 30s
+      repeat_interval: 1h
+
+    # Security alerts
+    - match:
+        category: security
+      receiver: 'security-team'
+      group_wait: 5s
+      repeat_interval: 15m
+
+    # Compliance alerts
+    - match:
+        category: compliance
+      receiver: 'compliance-team'
+      group_wait: 1m
+      repeat_interval: 24h
+
+    # Performance warnings
+    - match:
+        category: performance
+      receiver: 'technical-team'
+      group_wait: 30s
+      repeat_interval: 2h
+
+# Receivers (notification destinations)
+receivers:
+  # Default receiver for general alerts
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'admin@brf.se'
+        subject: '[BRF Alert] {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Service: {{ .Labels.service }}
+          Time: {{ .StartsAt }}
+          {{ end }}
+        html: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; }
+              .alert { margin: 10px 0; padding: 10px; border-left: 4px solid #f39c12; }
+              .critical { border-left-color: #e74c3c; }
+              .warning { border-left-color: #f39c12; }
+            </style>
+          </head>
+          <body>
+            <h2>BRF Portal Alert</h2>
+            {{ range .Alerts }}
+            <div class="alert {{ .Labels.severity }}">
+              <h3>{{ .Annotations.summary }}</h3>
+              <p><strong>Beskrivning:</strong> {{ .Annotations.description }}</p>
+              <p><strong>Allvarlighetsgrad:</strong> {{ .Labels.severity }}</p>
+              <p><strong>Tjänst:</strong> {{ .Labels.service }}</p>
+              <p><strong>Tid:</strong> {{ .StartsAt.Format "2006-01-02 15:04:05" }}</p>
+              {{ if .Annotations.runbook_url }}
+              <p><strong>Runbook:</strong> <a href="{{ .Annotations.runbook_url }}">{{ .Annotations.runbook_url }}</a></p>
+              {{ end }}
+            </div>
+            {{ end }}
+          </body>
+          </html>
+
+  # Critical alerts receiver
+  - name: 'critical-alerts'
+    email_configs:
+      - to: 'admin@brf.se,support@brf.se'
+        subject: '[KRITISKT] BRF Portal Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          🚨 KRITISKT LARM 🚨
+          
+          {{ range .Alerts }}
+          Larm: {{ .Annotations.summary }}
+          Beskrivning: {{ .Annotations.description }}
+          Tjänst: {{ .Labels.service }}
+          Tid: {{ .StartsAt }}
+          
+          Omedelbar åtgärd krävs!
+          {{ end }}
+    # Uncomment and configure for SMS notifications
+    # webhook_configs:
+    #   - url: 'http://your-sms-gateway/send'
+    #     send_resolved: true
+
+  # BRF operations team
+  - name: 'brf-operations'
+    email_configs:
+      - to: 'operations@brf.se,styrelse@brf.se'
+        subject: '[BRF Drift] {{ .GroupLabels.alertname }}'
+        body: |
+          Hej BRF-styrelsen,
+          
+          Ett driftlarm har utlösts för BRF-portalen:
+          
+          {{ range .Alerts }}
+          Typ: {{ .Annotations.summary }}
+          Detaljer: {{ .Annotations.description }}
+          Kategorin: {{ .Labels.category }}
+          Tid: {{ .StartsAt }}
+          {{ end }}
+          
+          Vänliga hälsningar,
+          BRF Portal Monitoring System
+
+  # Security team
+  - name: 'security-team'
+    email_configs:
+      - to: 'security@brf.se,admin@brf.se'
+        subject: '[SÄKERHET] BRF Portal: {{ .GroupLabels.alertname }}'
+        body: |
+          🔒 SÄKERHETSLARM
+          
+          {{ range .Alerts }}
+          Säkerhetshändelse: {{ .Annotations.summary }}
+          Beskrivning: {{ .Annotations.description }}
+          Tid: {{ .StartsAt }}
+          
+          Kontrollera systemloggar och vidta säkerhetsåtgärder vid behov.
+          {{ end }}
+
+  # Compliance team
+  - name: 'compliance-team'
+    email_configs:
+      - to: 'compliance@brf.se,revisor@brf.se'
+        subject: '[REGELEFTERLEVNAD] BRF Portal: {{ .GroupLabels.alertname }}'
+        body: |
+          📋 REGELEFTERLEVNADSLARM
+          
+          {{ range .Alerts }}
+          Regelkrav: {{ .Annotations.summary }}
+          Detaljer: {{ .Annotations.description }}
+          Tid: {{ .StartsAt }}
+          
+          Åtgärd krävs för att säkerställa regelefterlevnad.
+          {{ end }}
+
+  # Technical team
+  - name: 'technical-team'
+    email_configs:
+      - to: 'tech@brf.se'
+        subject: '[TEKNIK] BRF Portal: {{ .GroupLabels.alertname }}'
+        body: |
+          🔧 TEKNISKT LARM
+          
+          {{ range .Alerts }}
+          Problem: {{ .Annotations.summary }}
+          Beskrivning: {{ .Annotations.description }}
+          Tjänst: {{ .Labels.service }}
+          Tid: {{ .StartsAt }}
+          {{ end }}
+
+# Inhibition rules (suppress certain alerts when others are active)
+inhibit_rules:
+  # Suppress warning alerts when critical alerts are active for the same service
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['service']
+
+  # Suppress individual alerts when the entire application is down
+  - source_match:
+      alertname: 'ApplicationDown'
+    target_match_re:
+      alertname: '(HighResponseTime|DatabaseConnectionFailures|.*)'
+    equal: ['service']
+
+  # Suppress memory alerts when the node is down
+  - source_match:
+      alertname: 'InstanceDown'
+    target_match_re:
+      alertname: '(HighMemoryUsage|HighCPUUsage|LowDiskSpace)'
+    equal: ['instance']
+
+# Silence configuration
+# Silences can be configured via the web UI or API

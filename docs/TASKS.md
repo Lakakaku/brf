@@ -1,126 +1,118 @@
 # TASKS.md - BRF Portal Complete Development Workflow
 
 ## Development Philosophy
-
-- Zero-cost development as long as possible (Months 1-6)
-- Test everything thoroughly with admin testing capabilities
-- Mock all paid services initially, prepare for easy integration later
-- Data-driven approach - ensure AI has sufficient real data before making predictions
-- Testing-minded approach - build admin capabilities to test every function
+* Zero-cost development as long as possible (Months 1-6)
+* Test everything thoroughly with admin testing capabilities
+* Mock all paid services initially, prepare for easy integration later
+* Data-driven approach - ensure AI has sufficient real data before making predictions
+* Testing-minded approach - build admin capabilities to test every function
 
 ## Parallel Task Notation
-
-- [PARALLEL-GROUP-A] - Tasks marked with the same group letter can run simultaneously
-- [SEQUENTIAL] - Must be completed in order, cannot parallelize
-- [INDEPENDENT] - Can run anytime within the phase, no dependencies
+* [PARALLEL-GROUP-A] - Tasks marked with the same group letter can run simultaneously
+* [SEQUENTIAL] - Must be completed in order, cannot parallelize
+* [INDEPENDENT] - Can run anytime within the phase, no dependencies
 
 ## PHASE 1: Foundation & Infrastructure (Months 1-2)
 
 ### 1.1 Development Environment Setup
-
 **Order: SEC-1 (Sequential - must complete first)**  
 **Difficulty: 3/10**
 
-1. [x] **FIRST** - Initialize Next.js 14 project with TypeScript **[SEQUENTIAL]** **[AGENT: nextjs-developer]**
-2. [x] **SECOND** - Set up Git repository with proper .gitignore **[SEQUENTIAL]** **[AGENT: infrastructure-architect]**
-3. [x] **THIRD** - Configure Tailwind CSS for styling **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
-4. [x] **THIRD** - Configure Radix UI for component library **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
-5. [x] **THIRD** - Set up SQLite database for zero-cost development **[PARALLEL-GROUP-A]** **[AGENT: database-architect]**
-6. [x] **FOURTH** - Create environment variables structure (.env.example) **[PARALLEL-GROUP-B]** **[AGENT: infrastructure-architect]**
-7. [x] **FOURTH** - Set up ESLint and Prettier configuration **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-8. [x] **FOURTH** - Set up TypeScript strict mode **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-9. [x] **FIFTH** - Initialize testing framework (Jest + React Testing Library) **[SEQUENTIAL]** **[AGENT: qa-engineer]**
-10. [x] **SIXTH** - Configure Docker Compose for local development **[INDEPENDENT]** **[AGENT: infrastructure-architect]**
-11. [x] **SEVENTH** - Create CI/CD pipeline with GitHub Actions (tests only, no deployment) **[SEQUENTIAL after 9]** **[AGENT: infrastructure-architect]**
-12. [x] **EIGHTH** - Set up project documentation structure (/docs folder) **[PARALLEL-GROUP-C]** **[AGENT: technical-writer]**
-13. [x] **EIGHTH** - Create development README with setup instructions **[PARALLEL-GROUP-C]** **[AGENT: technical-writer]**
+1. [x] **FIRST** - Initialize Next.js 14 project with TypeScript **[SEQUENTIAL]** **[AGENT: nextjs-developer]** ✅
+2. [x] **SECOND** - Set up Git repository with proper .gitignore **[SEQUENTIAL]** **[AGENT: infrastructure-architect]** ✅
+3. [x] **THIRD** - Configure Tailwind CSS for styling **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]** ✅
+4. [x] **THIRD** - Configure Radix UI for component library **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]** ✅
+5. [x] **THIRD** - Set up SQLite database for zero-cost development **[PARALLEL-GROUP-A]** **[AGENT: database-architect]** ✅
+6. [x] **FOURTH** - Create environment variables structure (.env.example) **[PARALLEL-GROUP-B]** **[AGENT: infrastructure-architect]** ✅
+7. [x] **FOURTH** - Set up ESLint and Prettier configuration **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]** ✅
+8. [x] **FOURTH** - Set up TypeScript strict mode **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]** ✅
+9. [x] **FIFTH** - Initialize testing framework (Jest + React Testing Library) **[SEQUENTIAL]** **[AGENT: qa-engineer]** ✅
+10. [x] **SIXTH** - Configure Docker Compose for local development **[INDEPENDENT]** **[AGENT: infrastructure-architect]** ✅
+11. [x] **SEVENTH** - Create CI/CD pipeline with GitHub Actions (tests only, no deployment) **[SEQUENTIAL after 9]** **[AGENT: infrastructure-architect]** ✅
+12. [x] **EIGHTH** - Set up project documentation structure (/docs folder) **[PARALLEL-GROUP-C]** **[AGENT: technical-writer]** ✅
+13. [x] **EIGHTH** - Create development README with setup instructions **[PARALLEL-GROUP-C]** **[AGENT: technical-writer]** ✅
 
 ### 1.2 Database Schema & Multi-Tenancy
-
 **Order: SEC-2 (After 1.1)**  
 **Difficulty: 7/10**
 
-1. [ ] **FIRST** - Design complete database schema in SQLite **[SEQUENTIAL]** **[AGENT: database-architect]**
-2. [ ] **SECOND** - Implement cooperatives table with all required fields **[SEQUENTIAL]** **[AGENT: database-architect]**
-3. [ ] **THIRD** - Create members table with GDPR-compliant structure **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, security-engineer]**
-4. [ ] **THIRD** - Design apartments table with legal requirements **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, swedish-law-expert]**
-5. [ ] **THIRD** - Implement documents table with full-text search **[PARALLEL-GROUP-A]** **[AGENT: database-architect]**
-6. [ ] **THIRD** - Create financial tables (invoices, monthly_fees, loans) **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, swedish-financial-expert]**
-7. [ ] **FOURTH** - Design case management tables **[PARALLEL-GROUP-B]** **[AGENT: database-architect]**
-8. [ ] **FOURTH** - Create notifications table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]**
-9. [ ] **FOURTH** - Design booking_resources table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]**
-10. [ ] **FOURTH** - Implement queue_positions table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]**
-11. [ ] **FIFTH** - Create board_meetings table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, swedish-law-expert]**
-12. [ ] **FIFTH** - Design energy_consumption table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, energy-optimization-expert]**
-13. [ ] **FIFTH** - Implement contractor_ratings table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, procurement-specialist]**
-14. [ ] **SIXTH** - Implement audit_log table for compliance **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]**
-15. [ ] **SEVENTH** - Create mock Row-Level Security **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]**
-16. [ ] **EIGHTH** - Implement soft delete for GDPR compliance **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]**
-17. [ ] **NINTH** - Create database migration system **[SEQUENTIAL]** **[AGENT: database-architect]**
-18. [ ] **TENTH** - Write database seed script with test data **[SEQUENTIAL]** **[AGENT: database-architect]**
-19. [ ] **ELEVENTH** - Test: Verify data isolation between cooperatives **[SEQUENTIAL]** **[AGENTS: qa-engineer, database-architect]**
+1. [x] **FIRST** - Design complete database schema in SQLite **[SEQUENTIAL]** **[AGENT: database-architect]** ✅
+2. [x] **SECOND** - Implement cooperatives table with all required fields **[SEQUENTIAL]** **[AGENT: database-architect]** ✅
+3. [x] **THIRD** - Create members table with GDPR-compliant structure **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, security-engineer]** ✅
+4. [x] **THIRD** - Design apartments table with legal requirements **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, swedish-law-expert]** ✅
+5. [x] **THIRD** - Implement documents table with full-text search **[PARALLEL-GROUP-A]** **[AGENT: database-architect]** ✅
+6. [x] **THIRD** - Create financial tables (invoices, monthly_fees, loans) **[PARALLEL-GROUP-A]** **[AGENTS: database-architect, swedish-financial-expert]** ✅
+7. [x] **FOURTH** - Design case management tables **[PARALLEL-GROUP-B]** **[AGENT: database-architect]** ✅
+8. [x] **FOURTH** - Create notifications table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]** ✅
+9. [x] **FOURTH** - Design booking_resources table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]** ✅
+10. [x] **FOURTH** - Implement queue_positions table **[PARALLEL-GROUP-B]** **[AGENT: database-architect]** ✅
+11. [x] **FIFTH** - Create board_meetings table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, swedish-law-expert]** ✅
+12. [x] **FIFTH** - Design energy_consumption table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, energy-optimization-expert]** ✅
+13. [x] **FIFTH** - Implement contractor_ratings table **[PARALLEL-GROUP-C]** **[AGENTS: database-architect, procurement-specialist]** ✅
+14. [x] **SIXTH** - Implement audit_log table for compliance **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]** ✅
+15. [x] **SEVENTH** - Create mock Row-Level Security **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]** ✅
+16. [x] **EIGHTH** - Implement soft delete for GDPR compliance **[SEQUENTIAL]** **[AGENTS: database-architect, security-engineer]** ✅
+17. [x] **NINTH** - Create database migration system **[SEQUENTIAL]** **[AGENT: database-architect]** ✅
+18. [x] **TENTH** - Write database seed script with test data **[SEQUENTIAL]** **[AGENT: database-architect]** ✅
+19. [x] **ELEVENTH** - Test: Verify data isolation between cooperatives **[SEQUENTIAL]** **[AGENTS: qa-engineer, database-architect]** ✅
 
-### 1.3 Authentication System (Mock Version)
-
+### 1.3 Authentication System (Mock Version) ✅ COMPLETED
 **Order: SEC-3 (After 1.2)**  
 **Difficulty: 5/10**
 
-1. [ ] **FIRST** - Create mock authentication system (email/password) **[SEQUENTIAL]** **[AGENT: api-developer]**
-2. [ ] **SECOND** - Build login/logout UI components **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
-3. [ ] **SECOND** - Implement session management with JWT **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
-4. [ ] **THIRD** - Create role-based access control **[SEQUENTIAL]** **[AGENTS: api-developer, security-engineer]**
-5. [ ] **FOURTH** - Build mock BankID flow (UI only) **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-6. [ ] **FOURTH** - Create user registration flow for testing **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-7. [ ] **FOURTH** - Implement password reset functionality **[PARALLEL-GROUP-B]** **[AGENT: api-developer]**
-8. [ ] **FIFTH** - Add two-factor authentication mock **[INDEPENDENT]** **[AGENTS: api-developer, security-engineer]**
-9. [ ] **SIXTH** - Build impersonation system for admin testing **[SEQUENTIAL]** **[AGENT: api-developer]**
-10. [ ] **SEVENTH** - Create login credentials distribution system **[INDEPENDENT]** **[AGENT: api-developer]**
-11. [ ] **EIGHTH** - Prepare authentication hooks for future BankID/Scrive **[INDEPENDENT]** **[AGENT: api-developer]**
-12. [ ] **NINTH** - Test: Complete auth flow for all user roles **[SEQUENTIAL]** **[AGENT: qa-engineer]**
+1. [x] **FIRST** - Create mock authentication system (email/password) **[SEQUENTIAL]** **[AGENT: api-developer]** ✅
+2. [x] **SECOND** - Build login/logout UI components **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]** ✅
+3. [x] **SECOND** - Implement session management with JWT **[PARALLEL-GROUP-A]** **[AGENT: api-developer]** ✅
+4. [x] **THIRD** - Create role-based access control **[SEQUENTIAL]** **[AGENTS: api-developer, security-engineer]** ✅
+5. [x] **FOURTH** - Build mock BankID flow (UI only) **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]** ✅
+6. [x] **FOURTH** - Create user registration flow for testing **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]** ✅
+7. [x] **FOURTH** - Implement password reset functionality **[PARALLEL-GROUP-B]** **[AGENT: api-developer]** ✅
+8. [x] **FIFTH** - Add two-factor authentication mock **[INDEPENDENT]** **[AGENTS: api-developer, security-engineer]** ✅
+9. [x] **SIXTH** - Build impersonation system for admin testing **[SEQUENTIAL]** **[AGENT: api-developer]** ✅
+10. [x] **SEVENTH** - Create login credentials distribution system **[INDEPENDENT]** **[AGENT: api-developer]** ✅
+11. [x] **EIGHTH** - Prepare authentication hooks for future BankID/Scrive **[INDEPENDENT]** **[AGENT: api-developer]** ✅
+12. [x] **NINTH** - Test: Complete auth flow for all user roles **[SEQUENTIAL]** **[AGENT: qa-engineer]** ✅
 
 ### 1.4 Admin Testing Panel
-
 **Order: SEC-4 (After 1.3)**  
 **Difficulty: 4/10**
 
-1. [ ] **FIRST** - Create admin dashboard for testing all features **[SEQUENTIAL]** **[AGENT: nextjs-developer]**
-2. [ ] **SECOND** - Build cooperative switcher for multi-tenant testing **[SEQUENTIAL]** **[AGENTS: nextjs-developer, database-architect]**
-3. [ ] **THIRD** - Implement user impersonation for testing **[PARALLEL-GROUP-A]** **[AGENTS: api-developer, nextjs-developer]**
-4. [ ] **THIRD** - Create data generator for bulk testing **[PARALLEL-GROUP-A]** **[AGENT: qa-engineer]**
-5. [ ] **THIRD** - Build feature toggle panel **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
-6. [ ] **FOURTH** - Add performance monitoring dashboard **[PARALLEL-GROUP-B]** **[AGENTS: infrastructure-architect, nextjs-developer]**
-7. [ ] **FOURTH** - Create error log viewer **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-8. [ ] **FOURTH** - Implement database query inspector **[PARALLEL-GROUP-B]** **[AGENTS: database-architect, nextjs-developer]**
-9. [ ] **FIFTH** - Add email preview panel (for mock emails) **[PARALLEL-GROUP-C]** **[AGENT: nextjs-developer]**
-10. [ ] **FIFTH** - Build webhook testing interface **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
-11. [ ] **FIFTH** - Create API response mocker **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
-12. [ ] **SIXTH** - Implement time travel for testing **[INDEPENDENT]** **[AGENT: api-developer]**
-13. [ ] **SEVENTH** - Test: Switch between cooperatives and verify isolation **[SEQUENTIAL]** **[AGENT: qa-engineer]**
+1. [x] **FIRST** - Create admin dashboard for testing all features **[SEQUENTIAL]** **[AGENT: nextjs-developer]** ✅
+2. [x] **SECOND** - Build cooperative switcher for multi-tenant testing **[SEQUENTIAL]** **[AGENTS: nextjs-developer, database-architect]** ✅
+3. [x] **THIRD** - Implement user impersonation for testing **[PARALLEL-GROUP-A]** **[AGENTS: api-developer, nextjs-developer]** ✅
+4. [x] **THIRD** - Create data generator for bulk testing **[PARALLEL-GROUP-A]** **[AGENT: qa-engineer]** ✅
+5. [x] **THIRD** - Build feature toggle panel **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]** ✅
+6. [x] **FOURTH** - Add performance monitoring dashboard **[PARALLEL-GROUP-B]** **[AGENTS: infrastructure-architect, nextjs-developer]** ✅
+7. [x] **FOURTH** - Create error log viewer **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]** ✅
+8. [x] **FOURTH** - Implement database query inspector **[PARALLEL-GROUP-B]** **[AGENTS: database-architect, nextjs-developer]** ✅
+9. [x] **FIFTH** - Add email preview panel (for mock emails) **[PARALLEL-GROUP-C]** **[AGENT: nextjs-developer]** ✅
+10. [x] **FIFTH** - Build webhook testing interface **[PARALLEL-GROUP-C]** **[AGENT: api-developer]** ✅
+11. [x] **FIFTH** - Create API response mocker **[PARALLEL-GROUP-C]** **[AGENT: api-developer]** ✅
+12. [x] **SIXTH** - Implement time travel for testing **[INDEPENDENT]** **[AGENT: api-developer]** ✅
+13. [x] **SEVENTH** - Test: Switch between cooperatives and verify isolation **[SEQUENTIAL]** **[AGENT: qa-engineer]** ✅
 
 ## PHASE 2: Core Document Management - "Bomb Us With Everything" (Month 2)
 
 ### 2.1 Document Upload System
-
 **Order: SEC-1 (Can start immediately in Phase 2)**  
 **Difficulty: 6/10**
 
-1. [ ] **FIRST** - Create drag-and-drop upload interface **[SEQUENTIAL]** **[AGENT: nextjs-developer]**
-2. [ ] **SECOND** - Support bulk upload (500+ files simultaneously) **[SEQUENTIAL]** **[AGENT: api-developer]**
-3. [ ] **THIRD** - Implement file type validation **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
-4. [ ] **THIRD** - Build upload progress tracking with cancel **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
-5. [ ] **THIRD** - Implement chunked upload for large files **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
-6. [ ] **FOURTH** - Create mobile photo upload with image correction **[PARALLEL-GROUP-B]** **[AGENT: mobile-developer]**
-7. [ ] **FOURTH** - Build folder upload support **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
-8. [ ] **FIFTH** - Add duplicate detection system **[SEQUENTIAL]** **[AGENT: api-developer]**
-9. [ ] **SIXTH** - Implement email-to-upload functionality mock **[INDEPENDENT]** **[AGENT: api-developer]**
-10. [ ] **SEVENTH** - Create upload history log with undo **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
-11. [ ] **SEVENTH** - Build retry mechanism for failed uploads **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
-12. [ ] **EIGHTH** - Build scanner integration mock **[INDEPENDENT]** **[AGENT: api-developer]**
-13. [ ] **NINTH** - Implement file size limits (configurable) **[INDEPENDENT]** **[AGENT: api-developer]**
-14. [ ] **TENTH** - Test: Upload 5000+ documents at once **[SEQUENTIAL]** **[AGENT: qa-engineer]**
+1. [x] **FIRST** - Create drag-and-drop upload interface **[SEQUENTIAL]** **[AGENT: nextjs-developer]**
+2. [x] **SECOND** - Support bulk upload (500+ files simultaneously) **[SEQUENTIAL]** **[AGENT: api-developer]**
+3. [x] **THIRD** - Implement file type validation **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
+4. [x] **THIRD** - Build upload progress tracking with cancel **[PARALLEL-GROUP-A]** **[AGENT: nextjs-developer]**
+5. [x] **THIRD** - Implement chunked upload for large files **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
+6. [x] **FOURTH** - Create mobile photo upload with image correction **[PARALLEL-GROUP-B]** **[AGENT: mobile-developer]**
+7. [x] **FOURTH** - Build folder upload support **[PARALLEL-GROUP-B]** **[AGENT: nextjs-developer]**
+8. [x] **FIFTH** - Add duplicate detection system **[SEQUENTIAL]** **[AGENT: api-developer]**
+9. [x] **SIXTH** - Implement email-to-upload functionality mock **[INDEPENDENT]** **[AGENT: api-developer]**
+10. [x] **SEVENTH** - Create upload history log with undo **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
+11. [x] **SEVENTH** - Build retry mechanism for failed uploads **[PARALLEL-GROUP-C]** **[AGENT: api-developer]**
+12. [x] **EIGHTH** - Build scanner integration mock **[INDEPENDENT]** **[AGENT: api-developer]**
+13. [x] **NINTH** - Implement file size limits (configurable) **[INDEPENDENT]** **[AGENT: api-developer]**
+14. [x] **TENTH** - Test: Upload 5000+ documents at once **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 2.1.1 Mass Document Import Capabilities
-
 **Order: After 2.1**  
 **Difficulty: 7/10**
 
@@ -135,7 +127,6 @@
 9. [ ] **SEVENTH** - Test: Import 20,000+ mixed format documents **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 2.2 AI Document Processing (Mock Version)
-
 **Order: SEC-2 (After 2.1)**  
 **Difficulty: 8/10**
 
@@ -156,7 +147,6 @@
 15. [ ] **TENTH** - Test: Process 100 different document types **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 2.3 Document Search & Retrieval
-
 **Order: Parallel with 2.2**  
 **Difficulty: 5/10**
 
@@ -174,7 +164,6 @@
 12. [ ] **NINTH** - Test: Search across 5000+ documents <200ms **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 2.4 Document Knowledge Base
-
 **Order: SEC-3 (After 2.2)**  
 **Difficulty: 7/10**
 
@@ -191,7 +180,6 @@
 11. [ ] **NINTH** - Test: Extract insights from 10 years of documents **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 2.5 Advanced Document Knowledge Extraction
-
 **Order: After 2.4**  
 **Difficulty: 7/10**
 
@@ -209,7 +197,6 @@
 ## PHASE 3: Financial Management System (Month 3)
 
 ### 3.1 Member & Apartment Registry
-
 **Order: SEC-1 (Critical - Legal requirement)**  
 **Difficulty: 6/10**
 
@@ -236,7 +223,6 @@
 21. [ ] **FIFTEENTH** - Build emergency contact registry **[PARALLEL-GROUP-E]** **[AGENTS: nextjs-developer, security-engineer]**
 
 ### 3.2 Fee Management System
-
 **Order: SEC-2 (After 3.1)**  
 **Difficulty: 8/10**
 
@@ -271,7 +257,6 @@
 29. [ ] **EIGHTEENTH** - Test: Match 100 payments from screenshots **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.2.1 Multiple Payment Channel Support
-
 **Order: After 3.2**  
 **Difficulty: 6/10**
 
@@ -286,7 +271,6 @@
 9. [ ] **SEVENTH** - Test: Complete collection cycle to court **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.3 Invoice Processing System
-
 **Order: Parallel with 3.2**  
 **Difficulty: 7/10**
 
@@ -314,7 +298,6 @@
 22. [ ] **SIXTEENTH** - Test: Reconcile 500 payments automatically **[SEQUENTIAL]**
 
 ### 3.4 "NEW" Button - Complete Procurement System
-
 **Order: SEC-3 (After 3.3)**  
 **Difficulty: 9/10**
 
@@ -336,7 +319,6 @@
 16. [ ] **TWELFTH** - Test: Complete procurement cycle for 10 needs **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.5 Accounting Integration
-
 **Order: SEC-4 (After 3.3)**  
 **Difficulty: 6/10**
 
@@ -354,7 +336,6 @@
 12. [ ] **EIGHTH** - Test: Sync 1000 transactions daily **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.6 Tax & Compliance
-
 **Order: SEC-5 (After 3.5)**  
 **Difficulty: 7/10**
 
@@ -368,7 +349,6 @@
 8. [ ] **SIXTH** - Test: Generate complete tax package **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.7 Loan & Interest Management
-
 **Order: Parallel with 3.6**  
 **Difficulty: 6/10**
 
@@ -382,7 +362,6 @@
 8. [ ] **SIXTH** - Test: Manage 10 different loans **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.8 Advanced Financial Compliance
-
 **Order: After 3.7**  
 **Difficulty: 7/10**
 
@@ -403,7 +382,6 @@
 15. [ ] **ELEVENTH** - Test: Complete fiscal year with accruals **[SEQUENTIAL]**
 
 ### 3.9 Budget Intelligence Tools
-
 **Order: After 3.8**  
 **Difficulty: 6/10**
 
@@ -422,7 +400,6 @@
 13. [ ] **NINTH** - Test: Run 10 different budget scenarios **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.10 Transfer and Credit Assessment Process
-
 **Order: After 3.1**  
 **Difficulty: 7/10**
 
@@ -438,7 +415,6 @@
 10. [ ] **EIGHTH** - Test: Assess 50 different buyer profiles **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.11 Intelligent Payment Behavior Prediction
-
 **Order: After 3.2**  
 **Difficulty: 8/10**
 
@@ -454,7 +430,6 @@
 10. [ ] **EIGHTH** - Test: Predict payment behavior for 100 members **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.12 Complete NEW Button Product Recommendations
-
 **Order: After 3.4**  
 **Difficulty: 7/10**
 
@@ -471,7 +446,6 @@
 11. [ ] **EIGHTH** - Test: Generate recommendations for 20 products **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.13 Detailed Fortnox/Visma Setup Wizard
-
 **Order: After 3.5**  
 **Difficulty: 5/10**
 
@@ -487,7 +461,6 @@
 10. [ ] **EIGHTH** - Test: Complete setup in under 30 minutes **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.14 Invoice Deviation Management System
-
 **Order: After 3.3**  
 **Difficulty: 6/10**
 
@@ -503,7 +476,6 @@
 10. [ ] **EIGHTH** - Test: Process 100 invoices with deviations **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.15 Advanced Queue Management System
-
 **Order: After 3.1**  
 **Difficulty: 6/10**
 
@@ -519,7 +491,6 @@
 10. [ ] **EIGHTH** - Test: Manage 200 members across 5 queues **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 3.16 Advanced Payment File Generation
-
 **Order: After 3.2**  
 **Difficulty: 6/10**
 
@@ -537,7 +508,6 @@
 ## PHASE 4: Property Management & AI Assistant (Month 4)
 
 ### 4.1 50-Year Maintenance Plan
-
 **Order: SEC-1**  
 **Difficulty: 9/10**
 
@@ -559,7 +529,6 @@
 16. [ ] **TENTH** - Test: Generate plan from 10 years of data **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.2 Case Management System
-
 **Order: Parallel with 4.1**  
 **Difficulty: 6/10**
 
@@ -578,7 +547,6 @@
 13. [ ] **NINTH** - Test: Process 50 different case types **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.3 Energy Optimization Module (Realistic)
-
 **Order: SEC-2 (After 4.1)**  
 **Difficulty: 8/10**
 
@@ -605,7 +573,6 @@
 21. [ ] **FOURTEENTH** - Test: Calculate savings for 10 different switches **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.3.1 Manual Energy Data Collection
-
 **Order: After 4.3**  
 **Difficulty: 5/10**
 
@@ -620,7 +587,6 @@
 9. [ ] **SEVENTH** - Test: Document 30% energy savings case **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.4 AI Chatbot for Members
-
 **Order: SEC-3 (After document knowledge base)**  
 **Difficulty: 9/10**
 
@@ -642,7 +608,6 @@
 16. [ ] **TENTH** - Test: Answer 100 different questions **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.5 Contractor Rating and Reference System
-
 **Order: After 4.2**  
 **Difficulty: 6/10**
 
@@ -658,7 +623,6 @@
 10. [ ] **EIGHTH** - Test: Rate 50 contractors across 10 BRFs **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.6 Advanced Energy Provider Comparison
-
 **Order: After 4.3**  
 **Difficulty: 7/10**
 
@@ -674,7 +638,6 @@
 10. [ ] **EIGHTH** - Test: Compare 10 providers for 5 consumption profiles **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.7 Heating System Optimization Details
-
 **Order: After 4.3**  
 **Difficulty: 7/10**
 
@@ -690,7 +653,6 @@
 10. [ ] **EIGHTH** - Test: Optimize heating for 10 building types **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 4.8 Maintenance Plan Data Sources
-
 **Order: After 4.1**  
 **Difficulty: 8/10**
 
@@ -708,7 +670,6 @@
 ## PHASE 5: Member Features & Communication (Month 5)
 
 ### 5.1 Member Portal
-
 **Order: SEC-1**  
 **Difficulty: 5/10**
 
@@ -728,7 +689,6 @@
 14. [ ] **EIGHTH** - Test: Full member journey for 10 scenarios **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.2 Advanced Booking System
-
 **Order: Parallel with 5.1**  
 **Difficulty: 6/10**
 
@@ -746,7 +706,6 @@
 12. [ ] **TENTH** - Test: 100 concurrent bookings **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.3 Member Communication Platform
-
 **Order: SEC-2 (After 5.1)**  
 **Difficulty: 7/10**
 
@@ -768,7 +727,6 @@
 16. [ ] **NINTH** - Test: 50 active chat users **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.4 BRF Social Feed
-
 **Order: Parallel with 5.3**  
 **Difficulty: 5/10**
 
@@ -787,7 +745,6 @@
 13. [ ] **EIGHTH** - Test: 100 posts with moderation **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.5 Simplified Gamification
-
 **Order: SEC-3 (After 5.3)**  
 **Difficulty: 4/10**
 
@@ -806,7 +763,6 @@
 13. [ ] **TENTH** - Test: 50 members earning/redeeming **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.6 Problem Reporting
-
 **Order: Independent**  
 **Difficulty: 4/10**
 
@@ -821,7 +777,6 @@
 9. [ ] **SEVENTH** - Test: 50 different problem reports **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.7 Automated Broker Report Generation
-
 **Order: After 5.1**  
 **Difficulty: 6/10**
 
@@ -837,7 +792,6 @@
 10. [ ] **EIGHTH** - Test: Generate 20 different broker reports **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.8 Member Communication Preferences System
-
 **Order: After 5.3**  
 **Difficulty: 5/10**
 
@@ -853,7 +807,6 @@
 10. [ ] **EIGHTH** - Test: Send notifications in 5 languages to 50 members **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.9 Building-Specific Chat Groups
-
 **Order: After 5.3**  
 **Difficulty: 5/10**
 
@@ -869,7 +822,6 @@
 10. [ ] **EIGHTH** - Test: 10 building groups with 100 members **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 5.10 Event Management System
-
 **Order: After 5.4**  
 **Difficulty: 5/10**
 
@@ -887,7 +839,6 @@
 ## PHASE 6: Board & Governance Tools (Month 5-6)
 
 ### 6.1 Executive Dashboard
-
 **Order: SEC-1**  
 **Difficulty: 6/10**
 
@@ -906,7 +857,6 @@
 13. [ ] **SIXTH** - Test: Complete monthly board cycle **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.2 Board Workspace
-
 **Order: Parallel with 6.1**  
 **Difficulty: 6/10**
 
@@ -924,7 +874,6 @@
 12. [ ] **NINTH** - Test: Complete board year cycle **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.3 Digital AGM System
-
 **Order: SEC-2 (After 6.2)**  
 **Difficulty: 8/10**
 
@@ -947,7 +896,6 @@
 17. [ ] **TWELFTH** - Test: Run mock AGM with 50 participants **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.4 Legal Compliance Module
-
 **Order: SEC-3 (After 6.2)**  
 **Difficulty: 7/10**
 
@@ -990,7 +938,6 @@
 37. [ ] **TWENTY-SIXTH** - Test: Generate all compliance warnings for a year **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.4.1 Mandatory Authority Submissions
-
 **Order: After 6.4**  
 **Difficulty: 8/10**
 
@@ -1005,7 +952,6 @@
 9. [ ] **SEVENTH** - Test: Complete compliance year with all deadlines **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.5 E-Signature System (Mock then Real)
-
 **Order: SEC-4 (After 6.3)**  
 **Difficulty: 5/10**
 
@@ -1021,7 +967,6 @@
 10. [ ] **EIGHTH** - Test: Sign 20 different document types **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.6 Automated Compliance Warning System
-
 **Order: After 6.4**  
 **Difficulty: 6/10**
 
@@ -1037,7 +982,6 @@
 10. [ ] **EIGHTH** - Test: Track compliance for full fiscal year **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.7 Enhanced Digital AGM Features
-
 **Order: After 6.3**  
 **Difficulty: 7/10**
 
@@ -1053,7 +997,6 @@
 10. [ ] **EIGHTH** - Test: Run AGM with 100 participants and 20 motions **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.8 Board Decision Tracking System
-
 **Order: After 6.2**  
 **Difficulty: 6/10**
 
@@ -1069,7 +1012,6 @@
 10. [ ] **EIGHTH** - Test: Track 100 decisions through completion **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 6.9 Annual Planning Wheel
-
 **Order: After 6.8**  
 **Difficulty: 5/10**
 
@@ -1087,7 +1029,6 @@
 ## PHASE 7: Sustainability & Premium Features (Month 6)
 
 ### 7.1 Sustainability Platform
-
 **Order: Independent**  
 **Difficulty: 6/10**
 
@@ -1105,7 +1046,6 @@
 12. [ ] **NINTH** - Test: Generate annual sustainability report **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.2 Insurance Management
-
 **Order: Independent**  
 **Difficulty: 4/10**
 
@@ -1119,7 +1059,6 @@
 8. [ ] **SIXTH** - Test: Manage 5 different policies **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.3 Subletting Administration
-
 **Order: Independent**  
 **Difficulty: 5/10**
 
@@ -1134,7 +1073,6 @@
 9. [ ] **SEVENTH** - Test: Process 10 subletting applications **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.4 Key & Access Management
-
 **Order: Independent**  
 **Difficulty: 5/10**
 
@@ -1150,7 +1088,6 @@
 10. [ ] **EIGHTH** - Test: Manage 100 access credentials **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.5 Individual Metering and Debiting (IMD)
-
 **Order: Independent**  
 **Difficulty: 5/10**
 
@@ -1164,7 +1101,6 @@
 8. [ ] **SIXTH** - Test: Track consumption for 50 apartments **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.6 Authority Reporting Automation
-
 **Order: After 6.4**  
 **Difficulty: 6/10**
 
@@ -1184,7 +1120,6 @@
 14. [ ] **TENTH** - Test: Complete property tax cycle **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.7 Payroll Management Module (Add-on)
-
 **Order: Independent**  
 **Difficulty: 7/10**
 
@@ -1199,7 +1134,6 @@
 9. [ ] **SEVENTH** - Test: Process payroll for 5 employees **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.8 Automated Financial Processes
-
 **Order: After 7.7**  
 **Difficulty: 6/10**
 
@@ -1214,7 +1148,6 @@
 9. [ ] **SEVENTH** - Test: Run 12 month-end processes **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.9 CSRD Reporting Module
-
 **Order: After 7.1**  
 **Difficulty: 7/10**
 
@@ -1230,7 +1163,6 @@
 10. [ ] **EIGHTH** - Test: Generate complete CSRD report **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 7.10 Grant and Subsidy Tracker
-
 **Order: Independent**  
 **Difficulty: 5/10**
 
@@ -1248,30 +1180,36 @@
 ## PHASE 8: Integrations & External Services (Month 6-7)
 
 ### 8.1 Swedish Service Integrations (All Mock Initially)
-
 **Order: Parallel execution possible**  
 **Difficulty: 6/10**
 
 All tasks in this phase can run in parallel groups:
 
 **[PARALLEL-GROUP-A]**
-
 1. [ ] Create mock BankID authentication UI **[AGENT: nextjs-developer]**
 2. [ ] Build mock Scrive signature flow **[AGENT: nextjs-developer]**
 3. [ ] Create mock Kivra document delivery **[AGENT: api-developer]**
 4. [ ] Build mock UC credit check responses **[AGENT: api-developer]**
 5. [ ] Create mock insurance company integrations **[AGENT: api-developer]**
 
-**[PARALLEL-GROUP-B]** 6. [ ] Build mock Fortnox data structure **[AGENT: fortnox-integration-specialist]** 7. [ ] Create mock Visma data structure **[AGENT: api-developer]** 8. [ ] Build mock Sally R/Eliq responses **[AGENT: energy-optimization-expert]**
+**[PARALLEL-GROUP-B]**
+6. [ ] Build mock Fortnox data structure **[AGENT: fortnox-integration-specialist]**
+7. [ ] Create mock Visma data structure **[AGENT: api-developer]**
+8. [ ] Build mock Sally R/Eliq responses **[AGENT: energy-optimization-expert]**
 
-**[PARALLEL-GROUP-C]** 9. [ ] Build mock Bankgirot payment files **[AGENT: api-developer]** 10. [ ] Create mock Plusgirot payment files **[AGENT: api-developer]** 11. [ ] Build mock energy provider data **[AGENT: energy-optimization-expert]**
+**[PARALLEL-GROUP-C]**
+9. [ ] Build mock Bankgirot payment files **[AGENT: api-developer]**
+10. [ ] Create mock Plusgirot payment files **[AGENT: api-developer]**
+11. [ ] Build mock energy provider data **[AGENT: energy-optimization-expert]**
 
-**[PARALLEL-GROUP-D]** 12. [ ] Create mock Bolagsverket submission **[AGENT: swedish-law-expert]** 13. [ ] Build mock Skatteverket reporting **[AGENT: swedish-financial-expert]** 14. [ ] Build mock property system connections **[AGENT: api-developer]**
+**[PARALLEL-GROUP-D]**
+12. [ ] Create mock Bolagsverket submission **[AGENT: swedish-law-expert]**
+13. [ ] Build mock Skatteverket reporting **[AGENT: swedish-financial-expert]**
+14. [ ] Build mock property system connections **[AGENT: api-developer]**
 
 15. [ ] **SEQUENTIAL** - Test: Complete integration flow for each **[AGENT: qa-engineer]**
 
 ### 8.2 Payment System Mocks
-
 **Order: Parallel with 8.1**  
 **Difficulty: 6/10**
 
@@ -1285,7 +1223,6 @@ All tasks in this phase can run in parallel groups:
 8. [ ] **SEVENTH** - Test: Process 100 payments **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 8.3 Data Migration Tools
-
 **Order: Independent**  
 **Difficulty: 5/10**
 
@@ -1302,7 +1239,6 @@ All tasks in this phase can run in parallel groups:
 11. [ ] **SEVENTH** - Test: Import 5 different BRF datasets **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 8.4 API & Partner Platform
-
 **Order: SEC-2 (After core features)**  
 **Difficulty: 7/10**
 
@@ -1321,7 +1257,6 @@ All tasks in this phase can run in parallel groups:
 13. [ ] **EIGHTH** - Test: Full API coverage **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 8.5 Swedish Bank-Specific Formats
-
 **Order: After 8.2**  
 **Difficulty: 7/10**
 
@@ -1337,7 +1272,6 @@ All tasks in this phase can run in parallel groups:
 10. [ ] **EIGHTH** - Test: Process payments through all banks **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 8.6 Swedish E-Invoice System
-
 **Order: After 8.5**  
 **Difficulty: 6/10**
 
@@ -1353,7 +1287,6 @@ All tasks in this phase can run in parallel groups:
 10. [ ] **EIGHTH** - Test: E-invoice flow with 5 banks **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 8.7 White-Label Configuration System
-
 **Order: After 8.4**  
 **Difficulty: 7/10**
 
@@ -1370,26 +1303,28 @@ All tasks in this phase can run in parallel groups:
 ## PHASE 9: Testing & Quality Assurance (Continuous)
 
 ### 9.1 Unit Testing
-
 **Order: Parallel with development**  
 **Difficulty: 4/10**
 
 All unit tests can run in parallel:
 
 **[PARALLEL-GROUP-A]**
-
 1. [ ] Test authentication functions **[AGENT: qa-engineer]**
 2. [ ] Test database operations **[AGENT: qa-engineer]**
 3. [ ] Test calculation functions **[AGENT: qa-engineer]**
 
-**[PARALLEL-GROUP-B]** 4. [ ] Test date/time utilities **[AGENT: qa-engineer]** 5. [ ] Test OCR/extraction algorithms **[AGENT: qa-engineer]** 6. [ ] Test validation functions **[AGENT: qa-engineer]**
+**[PARALLEL-GROUP-B]**
+4. [ ] Test date/time utilities **[AGENT: qa-engineer]**
+5. [ ] Test OCR/extraction algorithms **[AGENT: qa-engineer]**
+6. [ ] Test validation functions **[AGENT: qa-engineer]**
 
-**[PARALLEL-GROUP-C]** 7. [ ] Test multi-tenancy isolation **[AGENT: security-engineer]** 8. [ ] Test role permission logic **[AGENT: security-engineer]**
+**[PARALLEL-GROUP-C]**
+7. [ ] Test multi-tenancy isolation **[AGENT: security-engineer]**
+8. [ ] Test role permission logic **[AGENT: security-engineer]**
 
 9. [ ] **SEQUENTIAL** - Achieve 80% code coverage **[AGENT: qa-engineer]**
 
 ### 9.2 Integration Testing
-
 **Order: After each phase completion**  
 **Difficulty: 6/10**
 
@@ -1404,7 +1339,6 @@ All unit tests can run in parallel:
 9. [ ] **FIFTH** - Test backup and restore **[SEQUENTIAL]** **[AGENT: infrastructure-architect]**
 
 ### 9.3 User Acceptance Testing
-
 **Order: After Phase 6**  
 **Difficulty: 5/10**
 
@@ -1420,7 +1354,6 @@ All unit tests can run in parallel:
 10. [ ] **EIGHTH** - Document all feedback **[SEQUENTIAL]** **[AGENT: technical-writer]**
 
 ### 9.4 Performance Testing
-
 **Order: After Phase 7**  
 **Difficulty: 7/10**
 
@@ -1436,7 +1369,6 @@ All unit tests can run in parallel:
 10. [ ] **SIXTH** - Generate performance report **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 9.5 Security & Compliance Testing
-
 **Order: Before production**  
 **Difficulty: 8/10**
 
@@ -1452,7 +1384,6 @@ All unit tests can run in parallel:
 10. [ ] **SIXTH** - Test backup encryption **[SEQUENTIAL]** **[AGENT: security-engineer]**
 
 ### 9.6 Backup and Disaster Recovery Testing
-
 **Order: Before production**  
 **Difficulty: 8/10**
 
@@ -1468,7 +1399,6 @@ All unit tests can run in parallel:
 10. [ ] **SEVENTH** - Test cross-region failover **[SEQUENTIAL]** **[AGENT: infrastructure-architect]**
 
 ### 9.7 Complete Backup Infrastructure
-
 **Order: After 9.6**  
 **Difficulty: 8/10**
 
@@ -1484,7 +1414,6 @@ All unit tests can run in parallel:
 10. [ ] **EIGHTH** - Test: Complete restore within 4 hours **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 9.8 Data Retention Policy Enforcement
-
 **Order: After 9.7**  
 **Difficulty: 6/10**
 
@@ -1502,7 +1431,6 @@ All unit tests can run in parallel:
 ## PHASE 10: Production Preparation (Month 7)
 
 ### 10.1 Infrastructure Setup
-
 **Order: SEC-1**  
 **Difficulty: 6/10**
 
@@ -1519,7 +1447,6 @@ All unit tests can run in parallel:
 11. [ ] **EIGHTH** - Set up DDoS protection **[PARALLEL-GROUP-C]** **[AGENT: security-engineer]**
 
 ### 10.2 Real Integration Activation
-
 **Order: SEC-2 (After 10.1)**  
 **Difficulty: 8/10**
 
@@ -1536,7 +1463,6 @@ All unit tests can run in parallel:
 11. [ ] **TENTH** - Test each integration **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 10.3 Data Migration to Production
-
 **Order: SEC-3 (After 10.2)**  
 **Difficulty: 7/10**
 
@@ -1552,7 +1478,6 @@ All unit tests can run in parallel:
 10. [ ] **EIGHTH** - Set up data retention **[PARALLEL-GROUP-B]** **[AGENT: infrastructure-architect]**
 
 ### 10.4 Launch Preparation
-
 **Order: SEC-4 (Final step)**  
 **Difficulty: 5/10**
 
@@ -1570,7 +1495,6 @@ All unit tests can run in parallel:
 12. [ ] **EIGHTH** - Create backup communication **[INDEPENDENT]** **[AGENT: project-coordinator]**
 
 ### 10.5 Package Feature Gates
-
 **Order: After 10.4**  
 **Difficulty: 5/10**
 
@@ -1588,7 +1512,6 @@ All unit tests can run in parallel:
 ## PHASE 11: Post-Launch & Scale (Month 8+)
 
 ### 11.1 Customer Onboarding
-
 **Order: Continuous**  
 **Difficulty: 4/10**
 
@@ -1604,12 +1527,10 @@ All unit tests can run in parallel:
 10. [ ] **SEVENTH** - Optimize based on data **[SEQUENTIAL]** **[AGENT: project-coordinator]**
 
 ### 11.2 Feature Enhancement Based on Feedback
-
 **Order: Based on customer priority**  
 **Difficulty: Variable**
 
 Tasks depend on feedback but generally follow this pattern:
-
 1. [ ] **FIRST** - Collect and categorize feedback **[SEQUENTIAL]** **[AGENT: project-coordinator]**
 2. [ ] **SECOND** - Prioritize by impact **[SEQUENTIAL]** **[AGENT: project-coordinator]**
 3. [ ] **THIRD** - Implement top features **[PARALLEL-GROUP-A]** **[AGENT: api-developer]**
@@ -1622,7 +1543,6 @@ Tasks depend on feedback but generally follow this pattern:
 10. [ ] **SEVENTH** - Create industry features **[SEQUENTIAL]** **[AGENT: brf-operations-expert]**
 
 ### 11.3 White-Label & Partnership Platform
-
 **Order: After 50 customers**  
 **Difficulty: 7/10**
 
@@ -1637,7 +1557,6 @@ Tasks depend on feedback but generally follow this pattern:
 9. [ ] **SEVENTH** - Test with 3 pilot partners **[SEQUENTIAL]** **[AGENT: project-coordinator]**
 
 ### 11.4 Scaling Operations
-
 **Order: As needed**  
 **Difficulty: 8/10**
 
@@ -1653,7 +1572,6 @@ Tasks depend on feedback but generally follow this pattern:
 10. [ ] **EIGHTH** - Implement SLA monitoring **[SEQUENTIAL]** **[AGENT: infrastructure-architect]**
 
 ### 11.5 Swedish-Specific Legal Compliance
-
 **Order: Before launch**  
 **Difficulty: 9/10**
 
@@ -1669,7 +1587,6 @@ Tasks depend on feedback but generally follow this pattern:
 10. [ ] **EIGHTH** - Test: Validate against 50 real Swedish BRFs **[SEQUENTIAL]** **[AGENT: qa-engineer]**
 
 ### 11.6 Swedish Market Differentiation
-
 **Order: After 11.5**  
 **Difficulty: 6/10**
 
@@ -1687,139 +1604,121 @@ Tasks depend on feedback but generally follow this pattern:
 ## Critical Success Metrics
 
 ### Technical Metrics
-
-- [ ] 99.9% uptime achieved **[AGENT: infrastructure-architect]**
-- [ ] <200ms search response time **[AGENT: qa-engineer]**
-- [ ] <2s dashboard load time **[AGENT: qa-engineer]**
-- [ ] 95% document processing accuracy **[AGENT: ai-document-processor]**
-- [ ] 80% test coverage **[AGENT: qa-engineer]**
-- [ ] Zero critical security issues **[AGENT: security-engineer]**
-- [ ] <24h case resolution average **[AGENT: project-coordinator]**
+* [ ] 99.9% uptime achieved **[AGENT: infrastructure-architect]**
+* [ ] <200ms search response time **[AGENT: qa-engineer]**
+* [ ] <2s dashboard load time **[AGENT: qa-engineer]**
+* [ ] 95% document processing accuracy **[AGENT: ai-document-processor]**
+* [ ] 80% test coverage **[AGENT: qa-engineer]**
+* [ ] Zero critical security issues **[AGENT: security-engineer]**
+* [ ] <24h case resolution average **[AGENT: project-coordinator]**
 
 ### Business Metrics
-
-- [ ] 5 pilot BRFs successfully onboarded **[AGENT: project-coordinator]**
-- [ ] 50 paying customers by month 9 **[AGENT: project-coordinator]**
-- [ ] <2% monthly churn rate **[AGENT: project-coordinator]**
-- [ ] NPS score >50 **[AGENT: project-coordinator]**
-- [ ] 10x ROI demonstrated **[AGENT: swedish-financial-expert]**
-- [ ] 500,000 SEK revenue year 1 **[AGENT: project-coordinator]**
+* [ ] 5 pilot BRFs successfully onboarded **[AGENT: project-coordinator]**
+* [ ] 50 paying customers by month 9 **[AGENT: project-coordinator]**
+* [ ] <2% monthly churn rate **[AGENT: project-coordinator]**
+* [ ] NPS score >50 **[AGENT: project-coordinator]**
+* [ ] 10x ROI demonstrated **[AGENT: swedish-financial-expert]**
+* [ ] 500,000 SEK revenue year 1 **[AGENT: project-coordinator]**
 
 ### User Metrics
-
-- [ ] 80% member activation rate **[AGENT: project-coordinator]**
-- [ ] 60% monthly active users **[AGENT: project-coordinator]**
-- [ ] 50% feature adoption rate **[AGENT: project-coordinator]**
-- [ ] <2 hours support response time **[AGENT: project-coordinator]**
-- [ ] 4.5/5 customer satisfaction **[AGENT: project-coordinator]**
+* [ ] 80% member activation rate **[AGENT: project-coordinator]**
+* [ ] 60% monthly active users **[AGENT: project-coordinator]**
+* [ ] 50% feature adoption rate **[AGENT: project-coordinator]**
+* [ ] <2 hours support response time **[AGENT: project-coordinator]**
+* [ ] 4.5/5 customer satisfaction **[AGENT: project-coordinator]**
 
 ## Parallel Execution Summary
 
 ### Maximum Parallel Tasks by Phase
 
 **Phase 1: Foundation**
-
-- 1.1: Up to 3 tasks in parallel
-- 1.2: Up to 4 tasks in parallel
-- 1.3: Up to 3 tasks in parallel
-- 1.4: Up to 3 tasks in parallel
+* 1.1: Up to 3 tasks in parallel
+* 1.2: Up to 4 tasks in parallel
+* 1.3: Up to 3 tasks in parallel
+* 1.4: Up to 3 tasks in parallel
 
 **Phase 2: Document Management**
-
-- 2.1: Up to 3 tasks in parallel
-- 2.2: Up to 4 tasks in parallel
-- 2.3: Up to 2 tasks in parallel
-- 2.4: Up to 2 tasks in parallel
+* 2.1: Up to 3 tasks in parallel
+* 2.2: Up to 4 tasks in parallel
+* 2.3: Up to 2 tasks in parallel
+* 2.4: Up to 2 tasks in parallel
 
 **Phase 3: Financial Management**
-
-- 3.1: Up to 3 tasks in parallel
-- 3.2: Up to 5 tasks in parallel
-- 3.3: Up to 2 tasks in parallel
-- 3.4: Up to 2 tasks in parallel
-- 3.5: Up to 2 tasks in parallel
-- 3.6: Up to 2 tasks in parallel
-- 3.7: Up to 2 tasks in parallel
+* 3.1: Up to 3 tasks in parallel
+* 3.2: Up to 5 tasks in parallel
+* 3.3: Up to 2 tasks in parallel
+* 3.4: Up to 2 tasks in parallel
+* 3.5: Up to 2 tasks in parallel
+* 3.6: Up to 2 tasks in parallel
+* 3.7: Up to 2 tasks in parallel
 
 **Phase 4: Property & AI**
-
-- 4.1: Up to 4 tasks in parallel
-- 4.2: Up to 2 tasks in parallel
-- 4.3: Up to 3 tasks in parallel
-- 4.4: Up to 5 tasks in parallel
+* 4.1: Up to 4 tasks in parallel
+* 4.2: Up to 2 tasks in parallel
+* 4.3: Up to 3 tasks in parallel
+* 4.4: Up to 5 tasks in parallel
 
 **Phase 5: Member Features**
-
-- 5.1: Up to 4 tasks in parallel
-- 5.2: Up to 2 tasks in parallel
-- 5.3: Up to 4 tasks in parallel
-- 5.4: Up to 3 tasks in parallel
-- 5.5: Up to 2 tasks in parallel
-- 5.6: Up to 2 tasks in parallel
+* 5.1: Up to 4 tasks in parallel
+* 5.2: Up to 2 tasks in parallel
+* 5.3: Up to 4 tasks in parallel
+* 5.4: Up to 3 tasks in parallel
+* 5.5: Up to 2 tasks in parallel
+* 5.6: Up to 2 tasks in parallel
 
 **Phase 6: Board Tools**
-
-- 6.1: Up to 4 tasks in parallel
-- 6.2: Up to 3 tasks in parallel
-- 6.3: Up to 3 tasks in parallel
-- 6.4: Up to 3 tasks in parallel
-- 6.5: Up to 2 tasks in parallel
+* 6.1: Up to 4 tasks in parallel
+* 6.2: Up to 3 tasks in parallel
+* 6.3: Up to 3 tasks in parallel
+* 6.4: Up to 3 tasks in parallel
+* 6.5: Up to 2 tasks in parallel
 
 **Phase 7: Sustainability**
-
-- 7.1: Up to 3 tasks in parallel
-- 7.2: Up to 2 tasks in parallel
-- 7.3: Up to 2 tasks in parallel
-- 7.4: Up to 2 tasks in parallel
+* 7.1: Up to 3 tasks in parallel
+* 7.2: Up to 2 tasks in parallel
+* 7.3: Up to 2 tasks in parallel
+* 7.4: Up to 2 tasks in parallel
 
 **Phase 8: Integrations**
-
-- 8.1: Up to 14 tasks in parallel (all mocks)
-- 8.2: Up to 2 tasks in parallel
-- 8.3: Up to 3 tasks in parallel
-- 8.4: Up to 4 tasks in parallel
+* 8.1: Up to 14 tasks in parallel (all mocks)
+* 8.2: Up to 2 tasks in parallel
+* 8.3: Up to 3 tasks in parallel
+* 8.4: Up to 4 tasks in parallel
 
 **Phase 9: Testing**
-
-- 9.1: Up to 8 tasks in parallel
-- 9.2: Up to 3 tasks in parallel
-- 9.3: Up to 2 tasks in parallel
-- 9.4: Up to 3 tasks in parallel
-- 9.5: Up to 3 tasks in parallel
+* 9.1: Up to 8 tasks in parallel
+* 9.2: Up to 3 tasks in parallel
+* 9.3: Up to 2 tasks in parallel
+* 9.4: Up to 3 tasks in parallel
+* 9.5: Up to 3 tasks in parallel
 
 **Phase 10: Production**
-
-- 10.1: Up to 2 tasks in parallel
-- 10.2: Most tasks independent
-- 10.3: Up to 2 tasks in parallel
-- 10.4: Up to 2 tasks in parallel
+* 10.1: Up to 2 tasks in parallel
+* 10.2: Most tasks independent
+* 10.3: Up to 2 tasks in parallel
+* 10.4: Up to 2 tasks in parallel
 
 **Phase 11: Post-Launch**
-
-- 11.1: Up to 2 tasks in parallel
-- 11.2: Up to 2 tasks in parallel
-- 11.3: Up to 2 tasks in parallel
-- 11.4: Up to 2 tasks in parallel
+* 11.1: Up to 2 tasks in parallel
+* 11.2: Up to 2 tasks in parallel
+* 11.3: Up to 2 tasks in parallel
+* 11.4: Up to 2 tasks in parallel
 
 ## Notes on Parallel Task Execution
 
 ### Understanding the Notation
-
-- **[SEQUENTIAL]** - Must complete this task before moving to the next
-- **[PARALLEL-GROUP-A/B/C/D]** - All tasks with the same letter can run simultaneously
-- **[INDEPENDENT]** - Can be done anytime within the phase, no dependencies
+* **[SEQUENTIAL]** - Must complete this task before moving to the next
+* **[PARALLEL-GROUP-A/B/C/D]** - All tasks with the same letter can run simultaneously
+* **[INDEPENDENT]** - Can be done anytime within the phase, no dependencies
 
 ### Efficiency Tips
-
 1. **Start parallel tasks together** - When you see multiple tasks with the same parallel group, start them all at once
 2. **Independent tasks are flexible** - Do these when you have spare time or need a break from complex work
 3. **Sequential bottlenecks** - Focus on completing sequential tasks first as they block progress
 4. **Resource allocation** - Assign different parallel tasks to different days/sessions to maintain focus
 
 ### Critical Path Items
-
 These sequential tasks are on the critical path and should be prioritized:
-
 1. Phase 1.1 (Environment setup)
 2. Phase 1.2 (Database schema)
 3. Phase 2.1 (Document upload)
@@ -1827,9 +1726,7 @@ These sequential tasks are on the critical path and should be prioritized:
 5. Phase 10 (Production preparation)
 
 ### Maximum Efficiency Strategy
-
 For solo development, the optimal approach is:
-
 1. Complete all sequential tasks first in each sub-phase
 2. Then batch similar parallel tasks together
 3. Use independent tasks as "filler" when blocked or need variety
